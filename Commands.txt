@@ -1,0 +1,43 @@
+git init
+git add .
+git commit -m "Initial catalogue website"
+git branch -M main
+git remote add origin https://github.com/ShifaSaeed/devops-c-juw31135.git
+git push -u origin main
+
+git checkout -b update-content
+git add .
+git commit -m "Add fourth book title"
+git checkout main
+git merge update-content
+git push origin main
+git push origin update-content
+git log --oneline --all --graph
+git branch -a
+
+git add .
+git commit -m "Add GitHub Actions workflow for Pages deployment"
+git push origin main
+
+git add .
+git commit -m "Update catalogue heading"
+git push origin main
+
+docker build -t devops-c-juw31135:v1 .
+docker images
+docker run -d --name devops-c-juw31135 -p 8080:80 devops-c-juw31135:v1
+docker ps
+
+minikube image load devops-c-juw31135:v1
+kubectl apply -f deployment.yaml
+kubectl get deployments
+kubectl get pods
+
+kubectl apply -f service.yaml
+kubectl get services
+minikube service devops-c-juw31135
+
+kubectl scale deployment devops-c-juw31135 --replicas=2
+kubectl get pods
+kubectl get deployments
+
